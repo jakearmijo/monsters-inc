@@ -1,42 +1,35 @@
 [
   {
-    "id": 1,
     "name": "Mike Wazowski",
     "image": "https://robohash.org/MikeWazowski?set=set2"
   },
   {
-    "id": 2,
     "name": "Randall Boggs",
     "image": "https://robohash.org/RandallBoggs?set=set2"
   },
   {
-    "id": 3,
     "name": "James P. Sullivan",
     "image": "https://robohash.org/JamesPSullivan?set=set2"
   },
   {
-    "id": 4,
     "name": "Roz",
     "image": "https://robohash.org/Roz?set=set2"
   },
   {
-    "id": 5,
     "name": "Boo",
     "image": "https://robohash.org/Boo?set=set2"
   },
   {
-    "id": 6,
     "name": "CDA",
     "image": "https://robohash.org/CDA?set=set2"
   },
   {
-    "id": 7,
     "name": "Celia Mae",
     "image": "https://robohash.org/CeliaMae?set=set2"
   },
   {
-    "id": 8,
     "name": "Henry J. Waternoose",
     "image": "https://robohash.org/RoHenryJWaternoose?set=set2"
   }
 ]
+

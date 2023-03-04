@@ -5,9 +5,53 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const uuidv4 = require("uuid/v4")
+
+const { v4: uuidv4 } = require('uuid');
 
 const Monster = require("./models/monster");
+
+const seedData = [
+  {
+    id: uuidv4(),
+    name: "Mike Wazowski",
+    image: "https://robohash.org/MikeWazowski?set=set2",
+  },
+  {
+    id: uuidv4(),
+    name: "Randall Boggs",
+    image: "https://robohash.org/RandallBoggs?set=set2",
+  },
+  {
+    id: uuidv4(),
+    name: "James P. Sullivan",
+    image: "https://robohash.org/JamesPSullivan?set=set2",
+  },
+  {
+    id: uuidv4(),
+    name: "Roz",
+    image: "https://robohash.org/Roz?set=set2",
+  },
+  {
+    id: uuidv4(),
+    name: "Boo",
+    image: "https://robohash.org/Boo?set=set2",
+  },
+  {
+    id: uuidv4(),
+    name: "CDA",
+    image: "https://robohash.org/CDA?set=set2",
+  },
+  {
+    id: uuidv4(),
+    name: "Celia Mae",
+    image: "https://robohash.org/CeliaMae?set=set2",
+  },
+  {
+    id: uuidv4(),
+    name: "Henry J. Waternoose",
+    image: "https://robohash.org/RoHenryJWaternoose?set=set2",
+  },
+];
 
 const app = express();
 
@@ -48,12 +92,8 @@ app.get("/api/monsters", async (req, res) => {
 
 app.post("/api/monsters", async (req, res) => {
   console.log("TRYING TO STORE MONSTER");
-  const monsterID = uuidv4()
   const monsterName = req.body.name;
-  const monsterImage = `https://robohash.org/${req.body.name.replace(
-    /\s/g,
-    ""
-  )}?set=set2`
+  const monsterImage = req.body.image;
 
   if (!monsterName || monsterName.trim().length === 0) {
     console.log("INVALID INPUT - NO TEXT");
@@ -61,19 +101,17 @@ app.post("/api/monsters", async (req, res) => {
   }
 
   const monster = new Monster({
-    id: monsterID,
+    id: uuidv4(),
     name: monsterName,
     image: monsterImage,
   });
 
   try {
     await monster.save();
-    res
-      .status(201)
-      .json({
-        message: "Monster saved",
-        monster: { id: monsterID, name: monsterName, image:  monsterImage},
-      });
+    res.status(201).json({
+      message: "Monster saved",
+      monster: { name: monsterName, image: monsterImage },
+    });
     console.log("STORED NEW MONSTER");
   } catch (err) {
     console.error("ERROR FETCHING MONSTERS");
@@ -111,3 +149,8 @@ mongoose.connect(
     }
   }
 );
+
+// const seedDB = async () => {
+//   await Monster.insertMany(seedData);
+// };
+// seedDB()

@@ -25,10 +25,5 @@ services:
   # MONGODB DATABASE
   mongodb:
     image: mongo
-    volumes:
-      - data:/data/db
     env_file:
       - ./env/mongo.env
-
-volumes:
-  data:
