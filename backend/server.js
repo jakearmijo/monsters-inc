@@ -6,48 +6,40 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 
-const { v4: uuidv4 } = require('uuid');
-
 const Monster = require("./models/monster");
+
+require('dotenv').config();
 
 const seedData = [
   {
-    id: uuidv4(),
     name: "Mike Wazowski",
     image: "https://robohash.org/MikeWazowski?set=set2",
   },
   {
-    id: uuidv4(),
     name: "Randall Boggs",
     image: "https://robohash.org/RandallBoggs?set=set2",
   },
   {
-    id: uuidv4(),
     name: "James P. Sullivan",
     image: "https://robohash.org/JamesPSullivan?set=set2",
   },
   {
-    id: uuidv4(),
     name: "Roz",
     image: "https://robohash.org/Roz?set=set2",
   },
   {
-    id: uuidv4(),
     name: "Boo",
     image: "https://robohash.org/Boo?set=set2",
   },
   {
-    id: uuidv4(),
     name: "CDA",
     image: "https://robohash.org/CDA?set=set2",
   },
   {
-    id: uuidv4(),
     name: "Celia Mae",
     image: "https://robohash.org/CeliaMae?set=set2",
   },
   {
-    id: uuidv4(),
     name: "Henry J. Waternoose",
     image: "https://robohash.org/RoHenryJWaternoose?set=set2",
   },
@@ -77,7 +69,7 @@ app.get("/api/monsters", async (req, res) => {
     const monsters = await Monster.find();
     res.status(200).json({
       monsters: monsters.map((monster) => ({
-        id: monster.id,
+        _id: monster._id,
         name: monster.name,
         image: monster.image,
       })),
@@ -101,7 +93,6 @@ app.post("/api/monsters", async (req, res) => {
   }
 
   const monster = new Monster({
-    id: uuidv4(),
     name: monsterName,
     image: monsterImage,
   });
@@ -110,7 +101,7 @@ app.post("/api/monsters", async (req, res) => {
     await monster.save();
     res.status(201).json({
       message: "Monster saved",
-      monster: { name: monsterName, image: monsterImage },
+      monster: { _id: monster._id , name: monster.name, image: monster.image },
     });
     console.log("STORED NEW MONSTER");
   } catch (err) {
@@ -134,8 +125,9 @@ app.delete("/api/monsters/:id", async (req, res) => {
 });
 
 mongoose.connect(
-  `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017/monsters-inc?authSource=admin`,
+  `mongodb+srv://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGODB_URL}/?retryWrites=true&w=majority`,
   {
+    
     useNewUrlParser: true,
     useUnifiedTopology: true,
   },

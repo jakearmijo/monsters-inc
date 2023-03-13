@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function MonsterInput(props: any) {
   interface Monster {
-    id: string;
+    _id: string;
     name: string;
     image: string;
   }
